@@ -77,4 +77,45 @@ class LineController extends Controller
         Log::info('Horny dragon not update yet.');
         return 'Horny dragon not update yet.';
     }
+    
+    public function promised_neverland()
+    {
+        $path = "https://www.manhuadui.com/manhua/yuedingdemenghuandao/";
+        $result = $this->CrawlerService->crawl_promised_neverland($path);
+        if($result){
+            $imagePath = "https://i.imgur.com/ZJ7oyhz.jpg";
+            $directUri = 'https://www.manhuadui.com'.$result[2];
+            $label = $result[0]." ".$result[1];
+            $noticeText = "Promised neverland updated!!!";
+            $this->LineBotService->buildTemplateMessageBuilderDeprecated(
+                $imagePath,$directUri,$label,$noticeText
+            );
+            return $result;
+        }
+        else {
+            Log::info('Promised neverland not update yet.');
+            return 'Promised neverland not update yet.';
+        }
+    }
+
+    public function fang_ji()
+    {
+        $path = "https://rinakawaei.blogspot.com/";
+        $result = $this->CrawlerService->crawl_fang_ji($path);
+        if($result){
+            $imagePath = "https://imgur.com/2z9ghNH.jpg";
+            $directUri = $result[0];
+            $label = 'Fang ji';
+            $noticeText = "Fang ji updated!!!";
+            $this->LineBotService->buildTemplateMessageBuilderDeprecated(
+                $imagePath,$directUri,$label,$noticeText
+            );
+            return $result;
+        }
+        else {
+            Log::info('Fang ji not update yet.');
+            return 'Fang ji not update yet.';
+        }
+    }
+
 }
